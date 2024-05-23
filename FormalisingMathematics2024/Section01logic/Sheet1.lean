@@ -64,6 +64,7 @@ variable (P Q R : Prop)
 -- Here are some examples of `intro`, `exact` and `apply` being used.
 -- Assume that `P` and `Q` and `R` are all true. Deduce that `P` is true.
 example (hP : P) (hQ : Q) (hR : R) : P := by
+
   -- note that `exact P` does *not* work. `P` is the proposition, `hP` is the proof.
   exact hP
   done
@@ -119,7 +120,9 @@ using `intro`, `exact` and `apply`.
 -/
 /-- Every proposition implies itself. -/
 example : P → P := by
-  sorry
+  intro h
+  exact h
+  
   done
 
 /-
@@ -138,19 +141,30 @@ So the next level is asking you prove that `P → (Q → P)`.
 
 -/
 example : P → Q → P := by
-  sorry
+  intro h
+  intro g
+  exact h
+
   done
 
 /-- If we know `P`, and we also know `P → Q`, we can deduce `Q`.
 This is called "Modus Ponens" by logicians. -/
 example : P → (P → Q) → Q := by
-  sorry
+  intro h
+  intro g
+  apply g
+  exact h
   done
 
 /-- `→` is transitive. That is, if `P → Q` and `Q → R` are true, then
   so is `P → R`. -/
 example : (P → Q) → (Q → R) → P → R := by
-  sorry
+  intro h
+  intro g
+  intro k
+  apply g
+  apply h
+  exact k
   done
 
 -- If `h : P → Q → R` with goal `⊢ R` and you `apply h`, you'll get
