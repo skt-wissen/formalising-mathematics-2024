@@ -122,7 +122,7 @@ using `intro`, `exact` and `apply`.
 example : P → P := by
   intro h
   exact h
-  
+
   done
 
 /-
@@ -170,7 +170,13 @@ example : (P → Q) → (Q → R) → P → R := by
 -- If `h : P → Q → R` with goal `⊢ R` and you `apply h`, you'll get
 -- two goals! Note that tactics operate on only the first goal.
 example : (P → Q → R) → (P → Q) → P → R := by
-  sorry
+  intro h1
+  intro h2
+  intro h3
+  apply h1
+  exact h3
+  apply h2
+  exact h3
   done
 
 /-
@@ -185,27 +191,61 @@ in this section, where you'll learn some more tactics.
 variable (S T : Prop)
 
 example : (P → R) → (S → Q) → (R → T) → (Q → R) → S → T := by
-  sorry
+  intro hPR
+  intro hSQ
+  intro hRT
+  intro hQR
+  intro hS
+  apply hRT
+  apply hQR
+  apply hSQ
+  exact hS
   done
 
 example : (P → Q) → ((P → Q) → P) → Q := by
-  sorry
+  intro h1
+  intro h2
+  apply h1
+  apply h2
+  exact h1
   done
 
 example : ((P → Q) → R) → ((Q → R) → P) → ((R → P) → Q) → P := by
-  sorry
+  intro h1
+  intro h2
+  intro h3
+  apply h2
+  intro h4
+  apply h1
+  intro h5
+  exact h4
   done
 
 example : ((Q → P) → P) → (Q → R) → (R → P) → P := by
-  sorry
+  intro h1
+  intro h2
+  intro h3
+  apply h1
+  intro h4
+  apply h3
+  apply h2
+  exact h4
   done
 
 example : (((P → Q) → Q) → Q) → P → Q := by
-  sorry
+  intro h1
+  intro h2
+  apply h1
+  intro h3
+  apply h3
+  exact h2
   done
 
 example :
     (((P → Q → Q) → (P → Q) → Q) → R) →
       ((((P → P) → Q) → P → P → Q) → R) → (((P → P → Q) → (P → P) → Q) → R) → R := by
+  intro h1
+  intro h2
+  intro h3
   sorry
   done
