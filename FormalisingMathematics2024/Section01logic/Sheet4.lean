@@ -26,39 +26,76 @@ and also the following tactics:
 variable (P Q R : Prop)
 
 example : P ∧ Q → P := by
-  sorry
+  intro h1
+  cases' h1 with hP hQ
+  exact hP
   done
 
 example : P ∧ Q → Q := by
-  sorry
+  intro h1
+  cases' h1 with hP hQ
+  exact hQ
   done
 
 example : (P → Q → R) → P ∧ Q → R := by
-  sorry
+  intro h1
+  intro h2
+  apply h1
+  cases' h2 with hP hQ
+  exact hP
+  cases' h2 with hP hQ
+  exact hQ
   done
 
 example : P → Q → P ∧ Q := by
-  sorry
+  intro h1
+  intro h2
+  constructor
+  exact h1
+  exact h2
   done
 
 /-- `∧` is symmetric -/
 example : P ∧ Q → Q ∧ P := by
-  sorry
+  intro h1
+  cases' h1 with hP hQ
+  constructor
+  exact hQ
+  exact hP
   done
 
 example : P → P ∧ True := by
-  sorry
+  intro h
+  constructor
+  exact h
+  triv
   done
 
 example : False → P ∧ False := by
-  sorry
+  intro h
+  constructor
+  exfalso
+  exact h
+  exact h
   done
 
 /-- `∧` is transitive -/
 example : P ∧ Q → Q ∧ R → P ∧ R := by
-  sorry
+  intro h1
+  intro h2
+  cases' h1 with hP hQ
+  cases' h2 with hQ1 hR
+  constructor
+  exact hP
+  exact hR
   done
 
 example : (P ∧ Q → R) → P → Q → R := by
-  sorry
+  intro h1
+  intro h2
+  intro h3
+  apply h1
+  constructor
+  exact h2
+  exact h3
   done
